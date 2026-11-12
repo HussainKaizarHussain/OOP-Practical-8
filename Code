@@ -1,0 +1,73 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+class ConfigurationManager {
+private:
+    // Static instance pointer
+    static ConfigurationManager* instance;
+    
+    string appName;
+    int maxConnections;
+
+    // Private constructor to prevent direct instantiation from outside
+    ConfigurationManager() {
+        appName = "RSSOFTTECS Enterprise Portal";
+        maxConnections = 100;
+        cout << "[Singleton] ConfigurationManager instance created.\n";
+    }
+
+public:
+    // Delete copy constructor and assignment operator to prevent duplication
+    ConfigurationManager(const ConfigurationManager&) = delete;
+    ConfigurationManager& operator=(const ConfigurationManager&) = delete;
+
+    // Public static method to provide access to the single instance
+    static ConfigurationManager* getInstance() {
+        if (instance == nullptr) {
+            instance = new ConfigurationManager();
+        }
+        return instance;
+    }
+
+    // Member function to display configurations
+    void displayConfig() const {
+        cout << "Application Name : " << appName << "\n";
+        cout << "Max Connections  : " << maxConnections << "\n";
+    }
+
+    // Static cleanup method (optional for demo cleanup)
+    static void destroyInstance() {
+        if (instance != nullptr) {
+            delete instance;
+            instance = nullptr;
+            cout << "[Singleton] ConfigurationManager instance destroyed.\n";
+        }
+    }
+};
+
+// Initialize static member variable outside the class
+ConfigurationManager* ConfigurationManager::instance = nullptr;
+
+int main() {
+    cout << "--- 1. Accessing Singleton Instance for the First Time ---\n";
+    ConfigurationManager* config1 = ConfigurationManager::getInstance();
+    config1->displayConfig();
+
+    cout << "\n--- 2. Accessing Singleton Instance a Second Time ---\n";
+    ConfigurationManager* config2 = ConfigurationManager::getInstance();
+    config2->displayConfig();
+
+    cout << "\n--- 3. Verifying Singleton Identity ---\n";
+    if (config1 == config2) {
+        cout << "Verification Successful: config1 and config2 point to the exact same instance.\n";
+    } else {
+        cout << "Verification Failed: Different instances exist.\n";
+    }
+
+    // Clean up instance
+    ConfigurationManager::destroyInstance();
+
+    return 0;
+}
