@@ -1,0 +1,12 @@
+--- 1. Accessing Singleton Instance for the First Time ---
+[Singleton] ConfigurationManager instance created.
+Application Name : RSSOFTTECS Enterprise Portal
+Max Connections  : 100
+
+--- 2. Accessing Singleton Instance a Second Time ---
+Application Name : RSSOFTTECS Enterprise Portal
+Max Connections  : 100
+
+--- 3. Verifying Singleton Identity ---
+Verification Successful: config1 and config2 point to the exact same instance.
+[Singleton] ConfigurationManager instance destroyed.
